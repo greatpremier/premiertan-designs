@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -13,8 +14,26 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import AIPanel from '@/components/ai-panel';
+import { useDesign } from '@/contexts/design-context';
 
 const LeftSidebar = () => {
+  const { addElement } = useDesign();
+  
+  const handleAddText = (type: 'heading' | 'subheading' | 'body') => {
+    let props;
+    switch(type) {
+      case 'heading':
+        props = { text: 'Add a heading', fontSize: 50, fontWeight: 'bold' };
+        break;
+      case 'subheading':
+        props = { text: 'Add a subheading', fontSize: 30, fontWeight: 'semibold' };
+        break;
+      case 'body':
+        props = { text: 'Add a little bit of body text', fontSize: 16, fontWeight: 'normal' };
+        break;
+    }
+    addElement('text', props);
+  }
 
   const renderElements = () => (
     <div className="grid grid-cols-2 gap-2 p-4">
@@ -46,9 +65,9 @@ const LeftSidebar = () => {
   
   const renderTextStyles = () => (
     <div className="flex flex-col gap-4 p-4">
-      <Button variant="outline" className="w-full justify-start text-3xl font-bold h-auto py-2">Add a heading</Button>
-      <Button variant="outline" className="w-full justify-start text-xl font-semibold h-auto py-2">Add a subheading</Button>
-      <Button variant="outline" className="w-full justify-start text-base font-normal h-auto py-2">Add a little bit of body text</Button>
+      <Button onClick={() => handleAddText('heading')} variant="outline" className="w-full justify-start text-3xl font-bold h-auto py-2">Add a heading</Button>
+      <Button onClick={() => handleAddText('subheading')} variant="outline" className="w-full justify-start text-xl font-semibold h-auto py-2">Add a subheading</Button>
+      <Button onClick={() => handleAddText('body')} variant="outline" className="w-full justify-start text-base font-normal h-auto py-2">Add a little bit of body text</Button>
     </div>
   );
 

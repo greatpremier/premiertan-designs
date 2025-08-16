@@ -1,5 +1,13 @@
+
+'use client';
+
 import DesignEditor from '@/components/design-editor';
+import { DesignProvider } from '@/contexts/design-context';
 
 export default function Home() {
-  return <DesignEditor />;
+  return (
+    <DesignProvider>
+      <DesignEditor />
+    </DesignProvider>
+  );
 }
